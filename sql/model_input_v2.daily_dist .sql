@@ -87,6 +87,8 @@ select b.date
 	, sum(coalesce(tvid.clicks,0)) as clicks_ttk_video
 	, sum(coalesce(tvid.impressions,0)) as imps_ttk_video
 	, sum(coalesce(tvid.cost,0)) as cost_ttk_video
+	-- POPULATION
+	, round(avg(p.population::integer),0) as population
 from base b
 
 left join facebook fdis on b.date = fdis.date and b.state = fdis.state and fdis.campaign_type = 'Display'
@@ -103,6 +105,8 @@ left join tiktok tdis on b.date = tdis.date and b.state = tdis.state and tdis.ca
 left join tiktok tsho on b.date = tsho.date and b.state = tsho.state and tsho.campaign_type = 'Shopping'
 left join tiktok tsrc on b.date = tsrc.date and b.state = tsrc.state and tsrc.campaign_type = 'Search'
 left join tiktok tvid on b.date = tvid.date and b.state = tvid.state and tvid.campaign_type = 'Video'
+
+left join utility.population_us p on date_part('year', b.date) = p.year::integer and b.state = p.location_name
 group by 1,2
 order by 1 desc, 2
 );

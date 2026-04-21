@@ -1,3 +1,9 @@
+-- File: weekly_dist.sql
+-- Purpose: Aggregate daily data to weekly level and calculate GRP proxy metrics
+-- Input: model_input_v2.daily_dist
+-- Output: model_input_v2.weekly_dist
+-- Notes: GRP = impressions per 1,000 population (proxy; no reach data)
+
 create or replace view model_input_v2.weekly_dist as (
 with weekly_dist as (
 select date_trunc('week', date)::date as week

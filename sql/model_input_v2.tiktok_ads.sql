@@ -1,3 +1,9 @@
+-- File: tiktok_ads.sql
+-- Purpose: Create platform-specific daily dataset (TikTok)
+-- Input: utility.global_ads_performance_dataset
+-- Output: model_input_v2.tiktok_ads
+-- Notes: Standardizes schema and applies country → state mapping for demo purposes
+
 create or replace view model_input_v2.tiktok_ads as (
 select date
 	, case when country = 'USA' then 'NY'

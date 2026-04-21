@@ -1,3 +1,9 @@
+-- File: daily_dist.sql
+-- Purpose: Build unified daily dataset across Google, Meta, TikTok
+-- Input: platform-specific views
+-- Output: model_input_v2.daily_dist
+-- Notes: Includes country-to-state mapping (simplified for demo)
+
 create or replace view model_input_v2.daily_dist as (
 with base as (	
 	select generate_series(
